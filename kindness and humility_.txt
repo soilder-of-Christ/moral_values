@@ -1,0 +1,65 @@
+// ==UserScript==
+// @name         kindness and humility
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  gives you a warning before entering websites like reddit or twitter to be kind.
+// @author       soldier of Christ
+// @match        *://x.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // Check if the script has already been run on the current session or if the flag is set
+    if (sessionStorage.getItem('videoShown')) {
+        return; // If video has already been shown, stop the script from running again
+    }
+
+    // Mark that the video has been shown in sessionStorage
+    sessionStorage.setItem('videoShown', 'true');
+
+    // Create the container for the message and video
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.top = '0';
+    container.style.left = '0';
+    container.style.width = '100%';
+    container.style.height = '100vh';
+    container.style.backgroundColor = 'black'; // Black background
+    container.style.zIndex = '9999';
+    container.style.color = 'white'; // White text color
+    container.style.textAlign = 'center';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.alignItems = 'center';
+    container.style.justifyContent = 'center';
+
+    // Create the message
+    const message = document.createElement('h1');
+    message.innerText = 'Don\'t hate the person, hate the sin.';
+    message.style.fontSize = '3em';
+    message.style.marginBottom = '20px';
+    message.style.color = 'white'; // White text for message
+    container.appendChild(message);
+
+    // Create the iframe for the YouTube video
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/Ne4vFCEY1kk?autoplay=1'; // Video URL with autoplay
+    iframe.width = '80%';
+    iframe.height = '60%';
+    iframe.style.border = 'none';
+    iframe.style.marginBottom = '20px';
+    iframe.allow = 'autoplay; encrypted-media';
+    iframe.allowFullscreen = true;
+    container.appendChild(iframe);
+
+    // Add the container to the body
+    document.body.appendChild(container);
+
+    // Hide the video and message and redirect after 10 seconds
+    setTimeout(function() {
+        container.style.display = 'none'; // Hide the message and video
+        window.location.href = 'https://x.com'; // Redirect to X.com
+    }, 10000); // Video duration (10 seconds)
+})();

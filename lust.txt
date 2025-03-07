@@ -1,0 +1,92 @@
+// ==UserScript==
+// @name         lent and lust saver 2000
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  saving you from lust
+// @author       solider of Christ
+// @match        *://*/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    // List of adult-related keywords to look for in URLs or content
+    const blockedKeywords = [
+        'porn', 'sex', 'xxx', 'adult', 'pornhub', 'adult-video', 'sexvideo', 'nude', 'explicit', 'nsfw', 'hentai'
+    ];
+
+    // Function to check if any blocked keywords exist in the URL
+    function containsBlockedKeyword(url) {
+        return blockedKeywords.some(keyword => url.toLowerCase().includes(keyword));
+    }
+
+    // If blocked keywords are found in the URL
+    if (containsBlockedKeyword(window.location.href)) {
+        // Remove existing content
+        document.body.innerHTML = '';
+
+        // Create a warning message
+        const message = document.createElement('h1');
+        message.innerText = 'This site is blocked for inappropriate content.';
+        message.style.textAlign = 'center';
+        message.style.fontSize = '2em';
+        message.style.color = 'red';
+        message.style.backgroundColor = '#f2f2f2';
+        document.body.appendChild(message);
+
+        // Create a container for the image and video
+        const container = document.createElement('div');
+        container.style.display = 'flex';
+        container.style.alignItems = 'center';
+        container.style.justifyContent = 'center';
+        container.style.flexWrap = 'wrap';
+        container.style.padding = '20px';
+        document.body.appendChild(container);
+
+        // Create and style the image element
+        const image = document.createElement('img');
+        image.src = 'https://russianicon.com/wp-content/uploads/2022/08/Orthodox-Icon-of-Christ-The-Holy-Face-e1660867654785.jpg';
+        image.alt = 'Orthodox Icon of Christ';
+        image.style.width = '300px';
+        image.style.margin = '20px';
+        image.style.border = '5px solid #ccc';
+        image.style.borderRadius = '10px';
+        image.style.objectFit = 'cover';
+
+        // Add the image to the container
+        container.appendChild(image);
+
+        // Create an iframe to embed the YouTube video with correct start time (216s) and autoplay
+        const iframe = document.createElement('iframe');
+        iframe.src = "https://www.youtube.com/embed/daxywGGJPMw?start=216&autoplay=1"; // Added autoplay=1 to the URL
+        iframe.width = "800";
+        iframe.height = "450";
+        iframe.style.display = "block";
+        iframe.style.margin = "20px auto";
+        iframe.frameBorder = "0";
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+
+        // Add the iframe to the container
+        container.appendChild(iframe);
+
+        // Create the "Return to Christ" message
+        const returnMessage = document.createElement('div');
+        returnMessage.innerText = "Return to Christ, brother!";
+        returnMessage.style.position = 'fixed';
+        returnMessage.style.bottom = '20px';
+        returnMessage.style.left = '50%';
+        returnMessage.style.transform = 'translateX(-50%)';
+        returnMessage.style.fontSize = '1.5em';
+        returnMessage.style.color = '#006400'; // Green color for emphasis
+        returnMessage.style.backgroundColor = '#f9f9f9';
+        returnMessage.style.padding = '10px 20px';
+        returnMessage.style.borderRadius = '8px';
+        returnMessage.style.boxShadow = '0px 0px 10px rgba(0, 0, 0, 0.2)';
+        returnMessage.style.textAlign = 'center';
+
+        // Add the return message to the body
+        document.body.appendChild(returnMessage);
+    }
+})();
